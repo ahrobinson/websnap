@@ -17,22 +17,33 @@ exports.show = function (req, res) {
 //   })
 // };
 
-exports.create = function (req, res) {
-  Chat.find({id: req.body._id}, function (err, chat) {
-    if(!chat){
-      var newChat = new Chat({
-        user: req.body.user,
-        body: req.body.chat
-      });
-      newChat.save();
-    } else {
-      console.log('err: ', err);
+exports.create = function (msg, cb) {
+  var newChat = new Chat({
+    user: 'anon',
+    body: msg
+  });
+  newChat.save(function (err, msg) {
+    if(!err){
+      console.log('saved!');
+      cb(msg);
     }
   });
 };
 // exports.update = function (req, res) {
 //
 // }
-exports.delete = function (req, res) {
-
+exports.delete = function (id, cb) {
+  console.log(id);
+  Chat.findOne({_id: id}, function (err, chat) {
+    if(!err){
+      chat.remove(function (err) {
+        if(!err) {
+          console.log('item destroyed');
+          cb();
+        }
+      });
+    } else {
+      console.log('err: ', err);
+    }
+  });
 };

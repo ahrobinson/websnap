@@ -7,5 +7,8 @@ $('form').on('submit', function () {
 });
 
 socket.on('chat msg', function (msg) {
-  $('#messages').append($('<li>').text(msg));
+  $('#messages').append($('<li>').text(msg.body));
+  setTimeout(function () {
+    socket.emit('deletion', msg._id);
+  }, 5000);
 });

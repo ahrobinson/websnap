@@ -17,6 +17,8 @@ app.use(bodyParser.json());
 // use morgan to log requests to the console
 app.use(morgan('dev'));
 
+app.use('/api/chat', require('./api/chat/routes'));
+
 app.use(express.static('app'));
 app.use('/node_modules', express.static('node_modules'));
 

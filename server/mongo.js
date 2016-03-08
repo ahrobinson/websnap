@@ -1,4 +1,4 @@
-var Chat = require('api/chat/chat');
+var Chat = require('./api/chat/chat');
 
 var db = {
   Chat: Chat,
