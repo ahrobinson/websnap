@@ -15,6 +15,7 @@ module.exports = function (server) {
     socket.on('deletion', function(id){
       controller.delete(id, function () {
         console.log('it is finished');
+        io.emit('deletion', id);
       });
     })
   });
