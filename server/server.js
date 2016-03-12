@@ -4,7 +4,7 @@ var server = require('http').Server(app);
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
-var db = require('./mongo');
+var db = require('./config/config');
 var io = require('./sockets')(server);
 
 mongoose.connect(db.url);
@@ -18,6 +18,8 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 app.use('/api/chat', require('./api/chat/routes'));
+app.use('/api/users', require('./api/user/routes'));
+app.use('/api/auth/local', require('../auth/local'));
 
 app.use(express.static('app'));
 app.use('/node_modules', express.static('node_modules'));

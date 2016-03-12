@@ -1,7 +1,5 @@
 var socket = io();
 
-
-
 function video (vid) {
   console.log('vid: ', vid);
   var video = $('video')[0];
@@ -29,15 +27,15 @@ $('#vidBtn').click(function () {
 
 
 
-/*
-*
-*
-*
-*       SEND CHAT MSG
-*
-*
-*
-*/
+  /*
+  *
+  *
+  *
+  *       SEND CHAT MSG
+  *
+  *
+  *
+  */
 
 function previewFile () {
   var preview = $('img')[0];
