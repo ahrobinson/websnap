@@ -35,14 +35,14 @@ exports.create = function (msg, cb) {
 exports.delete = function (id, cb) {
   console.log(id);
   Chat.findOne({_id: id}, function (err, chat) {
-    if(!err){
+    if(!err && chat){
       chat.remove(function (err) {
         if(!err) {
           console.log('item destroyed');
           cb();
         }
       });
-    } else {
+    } else if(err) {
       console.log('err: ', err);
     }
   });
