@@ -38,11 +38,11 @@ exports.create = function(req,res){
           });
           console.log('cookie')
           res.cookie('jwt-tok', token, { expires: new Date(Date.now() + 36000), httpOnly: true });
-
+          console.log(req.cookies)
           res.json({
             success: true,
             message: 'User saved! Take your token!',
-            token: res.cookie
+            token: req.cookies
           });
         }
       })

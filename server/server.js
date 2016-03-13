@@ -8,6 +8,8 @@ var db = require('./config/config');
 var io = require('./sockets')(server);
 var path = require('path');
 var auth = require('../auth/controller');
+var cookieParser = require('cookie-parser');
+
 
 mongoose.connect(db.url);
 
@@ -15,7 +17,7 @@ var port = process.env.PORT || 3000
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(cookieParser());
 // use morgan to log requests to the console
 app.use(morgan('dev'));
 
@@ -35,6 +37,7 @@ app.get('/', auth.verify, function (req, res) {
 });
 
 app.get('/signup', function (req, res) {
+  console.log(req.headers)
   res.sendFile(path.join(__dirname, '../app', 'signup.html'));
 });
 
