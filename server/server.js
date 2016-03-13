@@ -23,9 +23,10 @@ app.use(morgan('dev'));
 
 app.use('/api/chat', require('./api/chat/routes'));
 app.use('/api/users', require('./api/user/routes'));
-app.use('/api/auth/local', require('../auth/local'));
+app.use('/api/auth/', require('../auth/local'));
 
 // app.use(express.static('app'));
+//serving all files in app creates weird problems with cookies
 app.use('/node_modules', express.static('node_modules'));
 app.use('/auth.js', express.static('app/auth.js'));
 app.use('/app.js', express.static('app/app.js'));
@@ -34,8 +35,6 @@ app.use('/style.css', express.static('app/style.css'));
 //ROUTES
 
 app.get('/', auth.verify, function (req, res) {
-  // console.log(req.headers)
-  console.log('cookies: ', req.cookies)
   res.sendFile(path.join(__dirname, '../app', 'index.html'));
 });
 

@@ -24,18 +24,21 @@ exports.login =  function(req, res){
           expiresIn: 86400
         });
 
-        // res.cookie('jwt-tok', token, { expires: new Date(Date.now() + 36000), httpOnly: true });
-
-        // res.json({
-        //   success: true,
-        //   message: 'Take your token!',
-        //   token: token
-        // });
+        res.cookie('jwt-tok', token, { expires: new Date(Date.now() + 36000), httpOnly: true });
+        res.json({
+          success: true,
+          message: 'User saved! Take your token!'
+        });
       }
     }
   }).then(function(err){
     console.log(err)
   })
+}
+
+exports.logout = function (req, res) {
+  res.clearCookie('jwt-tok');
+  res.end();
 }
 
 exports.verify = function (req, res, next) {

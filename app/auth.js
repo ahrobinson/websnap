@@ -13,14 +13,6 @@ var Auth = {
     };
     console.log(userSignup)
     return $.post('/api/users/register', userSignup, function (resp) {
-      console.log('resp: ',resp);
-      // window.localStorage.setItem('jwt', resp.token);
-      // $.ajax({
-      //   url: '/',
-      //   type: 'GET',
-      //   // headers: { "x-access-token": window.localStorage.jwt },
-      // }).success(function () {
-      // })
       window.location.pathname = '/';
     })
   },
@@ -31,16 +23,13 @@ var Auth = {
     };
 
     return $.post('/api/users/register', JSON.stringify(userLogin), function (resp) {
-      window.localStorage.setItem('jwt', resp.token);
       window.location.pathname = '/';
     })
   },
   logout: function () {
-    window.localStorage.removeItem('jwt');
-    window.location.pathname = '/login';
-  },
-  isAuth: function () {
-    return !!window.localStorage.getItem('jwt');
+    $.post('/api/auth/logout', function (resp) {
+      window.location.pathname = '/login';
+    });
   }
 };
 
@@ -50,4 +39,8 @@ $('#signupBtn').click(function () {
 
 $('#loginBtn').click(function () {
   Auth.login();
+});
+
+$('#logoutBtn').click(function () {
+  Auth.logout();
 });
