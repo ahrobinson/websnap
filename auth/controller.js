@@ -39,7 +39,7 @@ exports.login =  function(req, res){
 }
 
 exports.verify = function (req, res, next) {
-  var token = req.headers.cookie.split('=')[1];
+  var token = req.cookies['jwt-tok'];
   if(token){
     jwt.verify(token, config.secret, function(err, decoded){
       console.log('hi: ', decoded)
@@ -51,10 +51,8 @@ exports.verify = function (req, res, next) {
       }
     })
   } else {
-    res.status(403).send({
-      success: false,
-      message: 'No token provided.'
-    })
+    res.status(403);
+    res.redirect('/signup');
   }
 
 }

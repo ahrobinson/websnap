@@ -29,15 +29,17 @@ app.use('/api/auth/local', require('../auth/local'));
 app.use('/node_modules', express.static('node_modules'));
 app.use('/auth.js', express.static('app/auth.js'));
 app.use('/app.js', express.static('app/app.js'));
+app.use('/style.css', express.static('app/style.css'));
 
 //ROUTES
 
 app.get('/', auth.verify, function (req, res) {
+  // console.log(req.headers)
+  console.log('cookies: ', req.cookies)
   res.sendFile(path.join(__dirname, '../app', 'index.html'));
 });
 
 app.get('/signup', function (req, res) {
-  console.log(req.headers)
   res.sendFile(path.join(__dirname, '../app', 'signup.html'));
 });
 

@@ -36,13 +36,14 @@ exports.create = function(req,res){
           var token = jwt.sign(user, config.secret, {
             expiresIn: 86400
           });
-          console.log('cookie')
+          //must store jwt in cookie because there is no way to pass jwt in header
+          //when using window.location.pathname, since the browser is making the
+          //request. By setting a cookie, it gets automatically sent with every
+          //browser request.
           res.cookie('jwt-tok', token, { expires: new Date(Date.now() + 36000), httpOnly: true });
-          console.log(req.cookies)
           res.json({
             success: true,
-            message: 'User saved! Take your token!',
-            token: req.cookies
+            message: 'User saved! Take your token!'
           });
         }
       })
@@ -74,10 +75,10 @@ exports.login =  function(req, res){
           expiresIn: 86400
         });
 
+        res.cookie('jwt-tok', token, { expires: new Date(Date.now() + 36000), httpOnly: true });
         res.json({
           success: true,
-          message: 'Take your token!',
-          token: token
+          message: 'User saved! Take your token!'
         });
       }
     }
