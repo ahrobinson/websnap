@@ -3,7 +3,7 @@ var config = require('../server/config/config');
 var User = require('../server/api/user/user');
 
 exports.login =  function(req, res){
-  var usersName = req.body.username;
+  var usersName = req.body.username ;
   var pass = req.body.password;
   console.log(req.body.username)
   User.findOne({
@@ -24,11 +24,13 @@ exports.login =  function(req, res){
           expiresIn: 86400
         });
 
-        res.json({
-          success: true,
-          message: 'Take your token!',
-          token: token
-        });
+        // res.cookie('jwt-tok', token, { expires: new Date(Date.now() + 36000), httpOnly: true });
+
+        // res.json({
+        //   success: true,
+        //   message: 'Take your token!',
+        //   token: token
+        // });
       }
     }
   }).then(function(err){
@@ -36,14 +38,15 @@ exports.login =  function(req, res){
   })
 }
 
-exports.verify = function(req,res, next){
-  var token = req.body.token;
+exports.verify = function (req, res, next) {
+  var token = req.headers.cookie.split('=')[1];
   if(token){
     jwt.verify(token, config.secret, function(err, decoded){
+      console.log('hi: ', decoded)
       if(err){
         throw err
       } else {
-        req.decoded = docoded;
+        req.decoded = decoded;
         next()
       }
     })

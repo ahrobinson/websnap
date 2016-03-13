@@ -1,3 +1,9 @@
+$.ajaxSetup({
+  headers: {
+    'x-access-token': window.localStorage.jwt
+  }
+});
+
 var Auth = {
   signup: function () {
     console.log('signuppp');
@@ -8,24 +14,30 @@ var Auth = {
     console.log(userSignup)
     return $.post('/api/users/register', userSignup, function (resp) {
       console.log('resp: ',resp);
-      window.localStorage.setItem('jwt', resp.token);
-      window.location.pathname = '/index.html';
+      // window.localStorage.setItem('jwt', resp.token);
+      // $.ajax({
+      //   url: '/',
+      //   type: 'GET',
+      //   // headers: { "x-access-token": window.localStorage.jwt },
+      // }).success(function () {
+      // })
+      window.location.pathname = '/';
     })
   },
-  signin: function () {
+  login: function () {
     var userLogin = {
       username: $('#usernameLogin').val(),
       password: $('#passwordLogin').val()
     };
 
     return $.post('/api/users/register', JSON.stringify(userLogin), function (resp) {
-      window.localStorage.setItem('jwt', resp.data.token);
-      window.location.pathname = '/home';
+      window.localStorage.setItem('jwt', resp.token);
+      window.location.pathname = '/';
     })
   },
   logout: function () {
     window.localStorage.removeItem('jwt');
-    window.location.pathname = '/signin';
+    window.location.pathname = '/login';
   },
   isAuth: function () {
     return !!window.localStorage.getItem('jwt');
@@ -34,4 +46,8 @@ var Auth = {
 
 $('#signupBtn').click(function () {
   Auth.signup();
+});
+
+$('#loginBtn').click(function () {
+  Auth.login();
 });

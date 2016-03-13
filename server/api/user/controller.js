@@ -36,11 +36,13 @@ exports.create = function(req,res){
           var token = jwt.sign(user, config.secret, {
             expiresIn: 86400
           });
+          console.log('cookie')
+          res.cookie('jwt-tok', token, { expires: new Date(Date.now() + 36000), httpOnly: true });
 
           res.json({
             success: true,
             message: 'User saved! Take your token!',
-            token: token
+            token: res.cookie
           });
         }
       })
