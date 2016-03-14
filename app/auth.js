@@ -6,13 +6,12 @@ $.ajaxSetup({
 
 var Auth = {
   signup: function () {
-    console.log('signuppp');
     var userSignup = {
       username: $('#usernameSignup').val(),
       password: $('#passwordSignup').val()
     };
-    console.log(userSignup)
-    return $.post('/api/users/register', userSignup, function (resp) {
+
+    return $.post('/api/auth/register', userSignup, function (resp) {
       window.location.pathname = '/';
     })
   },
@@ -21,8 +20,8 @@ var Auth = {
       username: $('#usernameLogin').val(),
       password: $('#passwordLogin').val()
     };
-
-    return $.post('/api/users/register', JSON.stringify(userLogin), function (resp) {
+    
+    return $.post('/api/auth/login', userLogin, function (resp) {
       window.location.pathname = '/';
     })
   },
@@ -38,6 +37,7 @@ $('#signupBtn').click(function () {
 });
 
 $('#loginBtn').click(function () {
+  console.log('login')
   Auth.login();
 });
 
