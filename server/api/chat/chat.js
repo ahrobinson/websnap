@@ -10,10 +10,6 @@ var chats = new Schema({
   }
 });
 
-chats.post('remove', function (chat) {
-  console.log('deleted chat: ', chat);
-});
-
 var Chat = mongoose.model('Chat', chats)
 
 module.exports = Chat;

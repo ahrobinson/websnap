@@ -46,6 +46,10 @@ app.get('/login', function (req, res) {
   res.sendFile(path.join(__dirname, '../app', 'login.html'));
 });
 
+//this catch-all redirects to home page, which redirects to login if unatuthorized
+app.all('*', function (req, res) {
+  res.redirect('/');
+});
 
 server.listen(port, function () {
   console.log('Let there be light!');

@@ -72,6 +72,7 @@ exports.signup = function (req, res) {
 }
 
 exports.logout = function (req, res) {
+  console.log('req.decoded: ', req.decoded);
   res.clearCookie('jwt-tok');
   res.end();
 }
